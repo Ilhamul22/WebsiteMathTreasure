@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website MathTreasure - SMP/MTs Kelas VII Semester 2</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter, Caveat (Cursive), Fredoka (3D Title), Paytone One -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=Paytone+One&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for crisp UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax Library for Rendering Mathematical Formulas / LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Custom Tailwind Configuration and Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            sky: '#7dd3fc',
+                            surface: '#38bdf8',
+                            mid: '#0284c7',
+                            deep: '#0f4c75',
+                            dark: '#072d4a',
+                            tealDark: '#0e4b52',
+                            tealPill: '#13525b'
+                        },
+                        sand: {
+                            light: '#fef08a',
+                            mid: '#fde047',
+                            gold: '#eab308'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cursive: ['Caveat', 'cursive'],
+                        title: ['Fredoka', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Cursive handwriting style for subtitle */
+        .font-cursive {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Bold 3D Title Styling strictly matching Canva Design #3 (Glitch-Free Stroke Layering) */
+        .text-3d-title {
+            font-family: 'Paytone One', 'Fredoka', sans-serif;
+            color: #ffffff;
+            -webkit-text-stroke: 8px #0e4b52;
+            paint-order: stroke fill;
+            -webkit-paint-order: stroke fill;
+            text-shadow: 
+                0px 6px 0px #083344,
+                0px 12px 20px rgba(7, 45, 74, 0.55),
+                0px 0px 30px rgba(125, 211, 252, 0.85);
+            letter-spacing: 0.03em;
+        }
+
+        /* Gold Shimmer Button Animation */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .btn-gold-shimmer {
+            background: linear-gradient(90deg, #f59e0b 0%, #fef08a 30%, #f59e0b 60%, #d97706 100%);
+            background-size: 200% 100%;
+            animation: shimmer 4s infinite linear;
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.45), 0 2px 0 #b45309;
+        }
+
+        .btn-gold-shimmer:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.6), 0 3px 0 #b45309;
+        }
+
+        /* Floating Animation for Marine Life */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        @keyframes floatMedium {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-18px) translateX(8px); }
+        }
+        @keyframes swimHorizontal {
+            0%, 100% { transform: translateX(0px) translateY(0px); }
+            50% { transform: translateX(15px) translateY(-8px); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.08); }
+        }
+
+        .animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+        .animate-float-medium { animation: floatMedium 4.5s ease-in-out infinite; }
+        .animate-swim { animation: swimHorizontal 7s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulseGlow 3.5s ease-in-out infinite; }
+
+        /* High-Contrast Glassmorphism Cards (Low Transparency for Maximum Contrast) */
+        .glass-card {
+            background: rgba(7, 42, 69, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(125, 211, 252, 0.45);
+            box-shadow: 0 15px 35px rgba(2, 28, 48, 0.6);
+        }
+
+        .glass-modal {
+            background: rgba(7, 35, 58, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(125, 211, 252, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 76, 117, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-full bg-slate-900 text-white font-sans antialiased select-none overflow-x-hidden">
+
+    <!-- GLOBAL UNDERWATER BACKGROUND SCENE (PERSISTENT ACROSS ALL PAGES) -->
+    <div id="ocean-background" class="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+
+        <!-- Ocean Color Gradient Layer -->
+        <div class="absolute inset-0 bg-gradient-to-b from-ocean-sky via-ocean-mid to-ocean-dark"></div>
+
+        <!-- Sunny Rays Overlay Effect at Top -->
+        <div class="absolute top-0 left-0 w-full h-80 opacity-40 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white via-cyan-200 to-transparent"></div>
+
+        <!-- 1. TOP-RIGHT: GREEN SEA TURTLE -->
+        <div class="absolute top-8 right-6 sm:right-16 md:right-28 w-28 sm:w-40 md:w-52 z-10 animate-float-slow pointer-events-none">
+            <svg viewBox="0 0 200 150" class="w-full h-auto drop-shadow-xl">
+                <ellipse cx="100" cy="75" rx="55" ry="40" fill="#15803d" stroke="#166534" stroke-width="3"/>
+                <path d="M 80 50 L 100 40 L 120 50 L 120 70 L 100 80 L 80 70 Z" fill="#22c55e" opacity="0.9"/>
+                <path d="M 60 70 L 80 50 L 80 70 L 60 85 Z" fill="#16a34a" opacity="0.8"/>
+                <path d="M 120 50 L 140 70 L 140 85 L 120 70 Z" fill="#16a34a" opacity="0.8"/>
+                <path d="M 80 70 L 100 80 L 100 105 L 80 95 Z" fill="#15803d" opacity="0.85"/>
+                <path d="M 100 80 L 120 70 L 120 95 L 100 105 Z" fill="#15803d" opacity="0.85"/>
+                <ellipse cx="160" cy="65" rx="18" ry="14" fill="#4ade80" />
+                <circle cx="166" cy="60" r="3" fill="#052e16"/>
+                <path d="M 120 40 C 150 10, 180 15, 175 35 C 160 45, 135 45, 120 40 Z" fill="#22c55e"/>
+                <path d="M 120 110 C 150 140, 180 135, 175 115 C 160 105, 135 105, 120 110 Z" fill="#16a34a"/>
+                <path d="M 55 55 C 35 40, 20 45, 25 55 Z" fill="#22c55e"/>
+                <path d="M 55 95 C 35 110, 20 105, 25 95 Z" fill="#16a34a"/>
+            </svg>
+        </div>
+
+        <!-- 2. MIDDLE-LEFT BACKGROUND: DEEP SHARK / WHALE SILHOUETTE -->
+        <div class="absolute top-1/3 -left-10 w-64 sm:w-96 opacity-35 z-5 animate-swim">
+            <svg viewBox="0 0 300 120" class="w-full h-auto fill-ocean-tealDark">
+                <path d="M 10 60 C 50 20, 150 15, 240 45 C 270 30, 290 10, 300 20 C 290 50, 275 70, 240 75 C 170 95, 80 90, 10 60 Z"/>
+                <path d="M 120 32 L 155 5 L 170 30 Z"/>
+                <path d="M 110 65 L 135 95 L 150 70 Z"/>
+            </svg>
+        </div>
+
+        <!-- 3. MIDDLE-RIGHT: DORY (BLUE TANG) & YELLOW FISH SHOAL -->
+        <div class="absolute top-1/2 right-4 sm:right-12 w-24 sm:w-36 z-10 animate-float-medium">
+            <svg viewBox="0 0 120 90" class="w-full h-auto drop-shadow-lg">
+                <ellipse cx="55" cy="45" rx="38" ry="30" fill="#2563eb"/>
+                <path d="M 30 30 C 50 15, 80 25, 75 45 C 70 65, 40 60, 30 30 Z" fill="#0f172a"/>
+                <ellipse cx="55" cy="45" rx="16" ry="12" fill="#2563eb"/>
+                <polygon points="17,45 2,20 2,70" fill="#eab308"/>
+                <path d="M 65 20 C 75 10, 85 15, 80 25 Z" fill="#eab308"/>
+                <circle cx="78" cy="38" r="5" fill="#ffffff"/>
+                <circle cx="79" cy="38" r="2.5" fill="#0284c7"/>
+            </svg>
+            <svg viewBox="0 0 60 40" class="w-10 sm:w-14 -mt-3 -ml-6 animate-pulse">
+                <ellipse cx="30" cy="20" rx="18" ry="11" fill="#facc15"/>
+                <polygon points="12,20 2,10 2,30" fill="#eab308"/>
+                <circle cx="40" cy="17" r="2" fill="#000"/>
+            </svg>
+        </div>
+
+        <!-- 4. BOTTOM SEABED: ORGANIC GOLDEN SAND CURVE -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
+            <svg viewBox="0 0 1200 140" preserveAspectRatio="none" class="relative block w-full h-28 sm:h-36 md:h-44">
+                <defs>
+                    <linearGradient id="sandGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fef08a" />
+                        <stop offset="40%" stop-color="#fde047" />
+                        <stop offset="100%" stop-color="#ca8a04" />
+                    </linearGradient>
+                </defs>
+                <path d="M0,40 C150,90 350,-10 500,50 C650,110 900,10 1200,45 L1200,140 L0,140 Z" fill="url(#sandGradient)"></path>
+                <path d="M0,65 C200,20 450,80 700,35 C950,0 1100,50 1200,30 L1200,140 L0,140 Z" fill="#eab308" opacity="0.3"></path>
+            </svg>
+        </div>
+
+        <!-- 5. BOTTOM-LEFT: CORAL REEF & CLOWNFISH (NEMO) -->
+        <div class="absolute bottom-2 left-2 sm:left-8 w-36 sm:w-56 md:w-64 z-20 pointer-events-none">
+            <svg viewBox="0 0 200 180" class="w-full h-auto drop-shadow-xl">
+                <path d="M 20 180 C 10 120, 0 100, 15 80 C 25 65, 35 90, 35 110 C 45 80, 60 70, 65 95 C 70 120, 50 180, 50 180 Z" fill="#a855f7"/>
+                <path d="M 45 180 C 40 130, 35 110, 50 95 C 60 85, 70 105, 65 125 C 75 100, 95 90, 90 120 C 85 140, 75 180, 75 180 Z" fill="#c084fc"/>
+                <path d="M 70 180 C 80 140, 100 130, 95 110 C 110 130, 105 150, 100 180 Z" fill="#10b981"/>
+                <path d="M 85 180 C 100 135, 120 120, 115 100 C 125 125, 120 150, 115 180 Z" fill="#34d399"/>
+
+                <!-- Clownfish 1 (Nemo) -->
+                <g transform="translate(65, 70) scale(0.75)" class="animate-float-medium">
+                    <ellipse cx="30" cy="20" rx="22" ry="14" fill="#f97316" stroke="#000" stroke-width="1"/>
+                    <polygon points="10,20 0,10 0,30" fill="#f97316" stroke="#000" stroke-width="1"/>
+                    <path d="M 18 8 Q 22 20 18 32" stroke="#ffffff" stroke-width="4" fill="none"/>
+                    <path d="M 30 6 Q 34 20 30 34" stroke="#ffffff" stroke-width="4" fill="none"/>
+                    <circle cx="42" cy="16" r="2.5" fill="#000"/>
+                </g>
+
+                <!-- Clownfish 2 (Small Nemo) -->
+                <g transform="translate(110, 95) scale(0.5)" class="animate-float-slow">
+                    <ellipse cx="30" cy="20" rx="22" ry="14" fill="#f97316" stroke="#000" stroke-width="1"/>
+                    <polygon points="10,20 0,10 0,30" fill="#f97316" stroke="#000" stroke-width="1"/>
+                    <path d="M 18 8 Q 22 20 18 32" stroke="#ffffff" stroke-width="4" fill="none"/>
+                    <path d="M 30 6 Q 34 20 30 34" stroke="#ffffff" stroke-width="4" fill="none"/>
+                    <circle cx="42" cy="16" r="2.5" fill="#000"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- 6. BOTTOM-RIGHT: GLOWING TREASURE CHEST -->
+        <div class="absolute bottom-2 right-2 sm:right-8 w-40 sm:w-60 md:w-72 z-20 pointer-events-none">
+            <div class="absolute bottom-6 right-6 w-32 h-32 sm:w-48 sm:h-48 bg-amber-300 rounded-full blur-2xl opacity-60 animate-pulse-glow"></div>
+
+            <svg viewBox="0 0 220 170" class="w-full h-auto drop-shadow-2xl relative z-10">
+                <circle cx="60" cy="150" r="6" fill="#fbbf24"/>
+                <circle cx="72" cy="155" r="5" fill="#f59e0b"/>
+                <circle cx="80" cy="148" r="7" fill="#fef08a"/>
+                <circle cx="160" cy="155" r="5" fill="#ffffff" stroke="#cbd5e1"/>
+                <circle cx="168" cy="152" r="4" fill="#ffffff" stroke="#cbd5e1"/>
+
+                <path d="M 50 100 L 170 100 L 160 150 L 60 150 Z" fill="#78350f" stroke="#451a03" stroke-width="3"/>
+                <path d="M 45 98 C 45 60, 175 60, 175 98 Z" fill="#92400e" stroke="#451a03" stroke-width="3"/>
+                <path d="M 55 98 L 165 98 L 180 40 L 40 40 Z" fill="url(#chestGlow)" opacity="0.85"/>
+
+                <defs>
+                    <linearGradient id="chestGlow" x1="0%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+                        <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.8"/>
+                        <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+
+                <rect x="70" y="100" width="12" height="50" fill="#fbbf24" stroke="#b45309"/>
+                <rect x="138" y="100" width="12" height="50" fill="#fbbf24" stroke="#b45309"/>
+                <rect x="100" y="95" width="20" height="22" rx="3" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+                <circle cx="110" cy="103" r="3" fill="#451a03"/>
+            </svg>
+        </div>
+
+    </div>
+
+    <!-- MAIN APP WRAPPER (SPA CONTAINER) -->
+    <div class="relative z-30 min-h-full flex flex-col justify-between">
+
+        <!-- HEADER / TOP NAVIGATION -->
+        <header class="w-full px-4 sm:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="logo1.png" alt="Logo MathTreasure" class="h-12 sm:h-16 w-auto object-contain rounded-2xl shadow-xl border border-white/30 bg-slate-900/90 p-1">
+            </div>
+            <div id="header-nav-right">
+                <!-- Navigation back button injected dynamically -->
+            </div>
+        </header>
+
+        <!-- ================= PAGE 1: HOME COVER SCREEN ================= -->
+        <main id="page-home" class="page-screen flex-1 flex flex-col items-center justify-center px-4 py-6 text-center">
+            <div class="max-w-3xl mx-auto flex flex-col items-center">
+                <p class="font-cursive text-3xl sm:text-5xl text-yellow-300 tracking-wide drop-shadow-md mb-1 sm:mb-2 transform -rotate-1">
+                    Mathematics for Students
+                </p>
+                <h1 class="text-3d-title text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-wider mb-4 sm:mb-6 select-none leading-tight sm:leading-none">
+                    WEBSITE<br class="sm:hidden" /> MATHTREASURE
+                </h1>
+                <div class="bg-ocean-tealDark/90 border-2 border-cyan-300/60 text-white text-xs sm:text-sm md:text-base font-bold px-6 sm:px-8 py-2.5 rounded-full shadow-2xl mb-10 sm:mb-14 max-w-md backdrop-blur-md">
+                    Untuk Siswa SMP/MTs Kelas VII Semester 2
+                </div>
+                <button onclick="navigateTo('page-daftar-bab')" class="btn-gold-shimmer text-slate-900 font-extrabold text-lg sm:text-2xl px-10 sm:px-14 py-4 sm:py-5 rounded-full transition-all duration-300 uppercase tracking-wider border-2 border-yellow-100 cursor-pointer">
+                    Buka Harta Karun
+                </button>
+            </div>
+        </main>
+
+        <!-- ================= PAGE 2: DAFTAR BAB SCREEN ================= -->
+        <main id="page-daftar-bab" class="page-screen hidden flex-1 flex flex-col items-center justify-center px-4 py-8">
+            <div class="max-w-5xl w-full mx-auto">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white drop-shadow-lg mb-2">
+                        Pilih Bab Pembelajaran
+                    </h2>
+                    <p class="text-cyan-100 text-sm sm:text-base font-medium">
+                        Jelajahi samudera matematika dan temukan harta karun ilmu pengetahuan
+                    </p>
+                </div>
+
+                <!-- Grid of 3 Chapter Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 px-2">
+
+                    <!-- BAB 1 CARD -->
+                    <div onclick="selectBab('bab1')" class="glass-card rounded-3xl p-6 sm:p-8 text-center cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-cyan-400/40 hover:border-cyan-200 group relative overflow-hidden">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-calculator text-3xl text-white"></i>
+                        </div>
+                        <span class="inline-block px-3.5 py-1 bg-cyan-950 border border-cyan-400/50 text-cyan-200 text-xs font-bold rounded-full mb-2">BAB 1</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">Bentuk Aljabar</h3>
+                        <p class="text-cyan-100/90 text-xs sm:text-sm mb-6 leading-relaxed">
+                            Mempelajari unsur-unsur aljabar, penyederhanaan, serta operasi penjumlahan dan perkalian.
+                        </p>
+                        <button class="w-full py-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 font-extrabold rounded-xl shadow-md group-hover:from-yellow-300 group-hover:to-amber-400 transition-colors">
+                            Mulai Misi Bab 1
+                        </button>
+                    </div>
+
+                    <!-- BAB 2 CARD -->
+                    <div onclick="selectBab('bab2')" class="glass-card rounded-3xl p-6 sm:p-8 text-center cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-cyan-400/40 hover:border-cyan-200 group relative overflow-hidden">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-shapes text-3xl text-white"></i>
+                        </div>
+                        <span class="inline-block px-3.5 py-1 bg-cyan-950 border border-cyan-400/50 text-cyan-200 text-xs font-bold rounded-full mb-2">BAB 2</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">Kesebangunan</h3>
+                        <p class="text-cyan-100/90 text-xs sm:text-sm mb-6 leading-relaxed">
+                            Mempelajari hubungan antar sudut, kesebangunan bangun datar, dan kriteria kesebangunan segitiga.
+                        </p>
+                        <button class="w-full py-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 font-extrabold rounded-xl shadow-md group-hover:from-yellow-300 group-hover:to-amber-400 transition-colors">
+                            Mulai Misi Bab 2
+                        </button>
+                    </div>
+
+                    <!-- BAB 3 CARD -->
+                    <div onclick="selectBab('bab3')" class="glass-card rounded-3xl p-6 sm:p-8 text-center cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-cyan-400/40 hover:border-cyan-200 group relative overflow-hidden">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-chart-column text-3xl text-white"></i>
+                        </div>
+                        <span class="inline-block px-3.5 py-1 bg-cyan-950 border border-cyan-400/50 text-cyan-200 text-xs font-bold rounded-full mb-2">BAB 3</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-3">Data & Diagram</h3>
+                        <p class="text-cyan-100/90 text-xs sm:text-sm mb-6 leading-relaxed">
+                            Mempelajari jenis data, membaca, menganalisis, serta menyajikan data dalam berbagai diagram.
+                        </p>
+                        <button class="w-full py-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-900 font-extrabold rounded-xl shadow-md group-hover:from-yellow-300 group-hover:to-amber-400 transition-colors">
+                            Mulai Misi Bab 3
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- ================= PAGE 3: DETAIL BAB & NAVIGATION MISI SCREEN ================= -->
+        <main id="page-detail-bab" class="page-screen hidden flex-1 flex flex-col items-center justify-start px-4 py-8">
+            <div class="max-w-4xl w-full mx-auto space-y-8">
+
+                <!-- Dynamic Chapter Header -->
+                <div id="bab-detail-header" class="text-center">
+                    <!-- Dynamic Title injected by JS -->
+                </div>
+
+                <!-- Mission 3 - 6 Navigation Grid -->
+                <div class="glass-card rounded-3xl p-6 sm:p-8">
+                    <h3 class="text-xl font-bold text-yellow-300 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-compass text-amber-400"></i> Pilih Misi Petualangan Bab
+                    </h3>
+                    <div id="mission-tabs-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <!-- Dynamic Mission Buttons generated by JS (Misi 3 - Misi 6) -->
+                    </div>
+                </div>
+
+                <!-- DYNAMIC CONTENT CONTAINER (LOADS KATA PENGANTAR + MISI CONTENT) -->
+                <div id="mission-content-container">
+                    <!-- Dynamic content injected by JS -->
+                </div>
+
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="w-full text-center py-4 text-xs text-cyan-200/90 border-t border-white/20 bg-slate-950/80 backdrop-blur-md">
+            Website MathTreasure &copy; 2026 - Pembelajaran Matematika Interaktif SMP/MTs Kelas VII Semester 2
+        </footer>
+
+    </div>
+
+    <!-- CUSTOM PASSWORD MODAL (TANPA ANIMASI BERGERAK, TULISAN HIGH-CONTRAST JELAS) -->
+    <div id="password-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+        <div class="glass-modal max-w-md w-full rounded-3xl p-6 sm:p-8 text-center shadow-2xl border-2 border-cyan-300">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-cyan-500/20 border-2 border-cyan-300 flex items-center justify-center text-cyan-300 text-3xl">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 id="password-modal-title" class="text-2xl font-extrabold text-white mb-2">Masukkan Kode Akses</h3>
+            <p id="password-modal-subtitle" class="text-cyan-100 text-xs sm:text-sm mb-6 font-medium leading-relaxed">
+                Masukkan kode/password untuk membuka misi bab ini.
+            </p>
+            <div class="mb-6">
+                <input type="password" id="password-input" placeholder="Masukkan password..." 
+                    onkeyup="if(event.key === 'Enter') submitPassword()"
+                    class="w-full px-5 py-3.5 rounded-2xl bg-slate-900 border-2 border-cyan-400 text-white placeholder-cyan-300/50 text-center font-extrabold text-lg focus:outline-none focus:border-amber-400 shadow-inner">
+                <p id="password-error-msg" class="text-rose-400 text-xs font-bold mt-2 hidden">
+                    <i class="fa-solid fa-circle-xmark"></i> Password salah! Silakan coba lagi.
+                </p>
+            </div>
+            <div class="flex items-center justify-center gap-3">
+                <button onclick="closePasswordModal()" class="px-6 py-3 rounded-full bg-slate-900 border border-cyan-400/60 text-white font-bold text-xs uppercase cursor-pointer hover:bg-slate-800 transition-all">
+                    Batal
+                </button>
+                <button onclick="submitPassword()" class="btn-gold-shimmer text-slate-900 font-extrabold px-8 py-3 rounded-full text-xs uppercase tracking-wider cursor-pointer">
+                    Buka Misi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM WARNING MODAL (NO ALERT BROWSER) -->
+    <div id="warning-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-modal max-w-md w-full rounded-3xl p-6 sm:p-8 text-center shadow-2xl animate-pulse-glow">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-400/20 border-2 border-amber-300 flex items-center justify-center text-amber-300 text-3xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold text-white mb-3">Petualangan Belum Selesai!</h3>
+            <p id="warning-modal-message" class="text-cyan-100 text-sm mb-6 leading-relaxed">
+                Masih ada beberapa pernyataan refleksi yang belum kamu jawab. Yuk, lengkapi semua pernyataan agar kamu bisa melihat hasil refleksimu!
+            </p>
+            <button onclick="closeWarningModal()" class="btn-gold-shimmer text-slate-900 font-bold px-8 py-3 rounded-full text-sm uppercase tracking-wider cursor-pointer">
+                Lengkapi Sekarang
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPT APPLICATION LOGIC & REFLEKSI SYSTEM -->
+    <script>
+        // =========================================================================
+        // KODE AKSES / PASSWORD MASING-MASING BAB (DAPAT KAMU UBAH SESUAI KEBUUTUHAN)
+        // =========================================================================
+        const chapterPasswords = {
+            bab1: "Bujar01",
+            bab2: "Kesbang02",
+            bab3: "Dagram03"
+        };
+
+        let pendingBabId = null;
+
+        // Metadata Misi untuk Setiap Bab (Misi 3 - Misi 6)
+        const missionsInfo = [
+            { num: 3, title: "Misi 3", subtitle: "Latihan Soal Bertingkat C1-C6", icon: "fa-pen-to-square" },
+            { num: 4, title: "Misi 4", subtitle: "Latihan Persiapan UTS/UAS", icon: "fa-graduation-cap" },
+            { num: 5, title: "Misi 5", subtitle: "Rangkuman Materi", icon: "fa-book-open" },
+            { num: 6, title: "Misi 6", subtitle: "Refleksi Pembelajaran", icon: "fa-clipboard-check" }
+        ];
+
+        // =========================================================================
+        // DATA KATA PENGANTAR, LINK & RANGKUMAN SETIAP BAB DAN MISI
+        // =========================================================================
+        const chapterMissionsData = {
+            bab1: {
+                // Kata Pengantar per Misi untuk Bab 1 (Bentuk Aljabar)
+                misi3Intro: `Selamat datang di Misi 3 Treasure Bentuk Aljabar!
+Di misi ini, kamu bakal menguji dan mengasah pemahaman aljabarmu secara bertahap dari tingkat dasar sampai soal HOTS (Higher Order Thinking Skills) melalui 6 jenjang soal:
+a. C1 (Mengingat) yang akan menguji ingatan kamu tentang unsur-unsur aljabar (variabel, koefisien, konstanta, dan suku).
+b. C2 (Memahami) yang akan menguji pemahaman kamu dalam menjelaskan alasan logis pemisalan variabel dan mendeteksi miskonsepsi suku sejenis.
+c. C3 (Menerapkan) yang akan menguji kemampuan kamu dalam menyederhanakan bentuk aljabar dan menghitung nilai substitusi pada masalah nyata.
+d. C4 (Menganalisis) yang akan menguji kemampuan kamu dalam melacak kekeliruan pada pengerjaan operasi aljabar dan sifat distributif.
+e. C5 (Mengevaluasi) yang akan menguji kemampuan kamu dalam menilai dan membuktikan kebenaran suatu pemodelan atau pernyataan aljabar.
+f. C6 (Mencipta) yang akan menguji kemampuan kamu dalam merancang model aljabar, teka-teki mesin angka, atau masalah baru secara mandiri.
+Siapkan alat tulismu dan taklukkan tantangannya satu per satu!`,
+
+                misi4Intro: `Selamat datang di Misi 4 Treasure Bentuk Aljabar!
+Di misi ini, kamu bakal menguji kesiapan dan ketelitianmu dalam menghadapi ujian tengah semester atau ujian akhir semester melalui soal-soal pilihan ganda melalui website ZEP Quiz.
+
+📍 Petunjuk Pengerjaan di ZEP Quiz:
+· Saat link dibuka, kamu bisa langsung menggerakkan avatarmu. Jika kamu menggunakan Handphone, maka gunakan joystick di layar sentuh untuk mengarahkan jalannya avatar. Jika kamu menggunakan Laptop/komputer, maka gunakan tombol panah/arah yang ada pada keyboard laptop/komputer untuk bergerak dan berpindah ke soal yang lain.
+· Gerakkan avatar mengikuti petunjuk panah yang ada di peta untuk menuju ke lokasi kuis!
+· Setibanya di tempat kuis, kamu bisa langsung memilih jawaban pilihan ganda yang menurutmu paling tepat!
+· Periksa kembali perhitunganmu, lalu kirim jawaban untuk melihat kebenaran dari setiap jawabanmu!
+· Setelah kamu mengerjakan semua soalnya, skor akhir kamu akan langsung tertampil pada layarmu.
+
+Kerjakan dengan tenang, teliti setiap langkah pengerjaannya, dan buktikan bahwa kamu siap meraih hasil terbaik!`,
+
+                misi5Intro: `Selamat datang di Misi 5 Treasure Bentuk Aljabar!
+Setelah berjuang menaklukkan berbagai soal dan kuis, saatnya kamu mengunci kembali pemahamanmu! Di misi ini, seluruh konsep penting aljabar dirangkum secara ringkas dan jelas untuk membantu memetakan kembali poin-poin utamanya. Manfaatkan rangkuman ini sebagai panduan cepat (cheat sheet) untuk menyegarkan ingatanmu kapan saja!`,
+
+                misi6Intro: `Selamat datang di Misi 6 Treasure Bentuk Aljabar!
+Di misi penutup ini, saatnya kamu melihat kembali seluruh perjalanan belajarmu di materi Bentuk Aljabar. Luangkan waktu sejenak, jujurlah pada dirimu sendiri, dan jadikan refleksi ini sebagai pijakan untuk belajar lebih hebat lagi!`,
+
+                // Link Misi 3 (C1 - C6) Bab 1
+                misi3Link: "https://wayground.com/join?gc=63626429",
+                
+                // Link Misi 4 (UTS/UAS) Bab 1
+                misi4Link: "https://quiz.zep.us/en/play/Gdpaaw",
+                
+                // Uraian Rangkuman Misi 5 Bab 1
+                misi5Rangkuman: `
+                    <div class="space-y-6 text-sm leading-relaxed text-cyan-50">
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-code"></i> Variabel & Unsur-Unsur Aljabar
+                            </h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-xs text-cyan-100">
+                                <li><strong>Variabel:</strong> Simbol (biasanya huruf) untuk menyatakan nilai yang belum diketahui atau dapat berubah. Menyatakan kuantitas nilai, bukan benda fisiknya.</li>
+                                <li><strong>Koefisien:</strong> Bilangan yang mengalikan variabel.</li>
+                                <li><strong>Konstanta:</strong> Suku yang tidak memiliki variabel.</li>
+                                <li><strong>Suku:</strong> Bagian bentuk aljabar yang dipisahkan oleh operasi penjumlahan/pengurangan. Operasi perkalian dan pembagian tidak memisahkan suku.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-calculator"></i> Suku Sejenis & Operasi Hitung
+                            </h5>
+                            <p class="text-xs text-cyan-100">
+                                Penjumlahan dan pengurangan hanya berlaku untuk <strong>suku sejenis</strong> (suku dengan variabel dan pangkat yang sama, atau sesama konstanta).
+                            </p>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-shapes"></i> Sifat-Sifat Aljabar
+                            </h5>
+                            <ul class="space-y-3 text-xs text-cyan-100">
+                                <li>
+                                    <strong>Sifat Distributif:</strong>
+                                    <div class="my-1 pl-4 space-y-1">
+                                        <div>• Pada Penjumlahan: \\(a(b + c) = ab + ac\\)</div>
+                                        <div>• Pada Pengurangan: \\(a(b - c) = ab - ac\\)</div>
+                                        <div class="text-cyan-200/80 italic text-[11px] mt-1">*Bentuk \\(a(b+c)\\) dinamakan bentuk faktor, sedangkan \\(ab+ac\\) dinamakan bentuk jabaran.</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Sifat Komutatif (Urutan dapat ditukar):</strong>
+                                    <div class="my-1 pl-4 space-y-1">
+                                        <div>• Pada Penjumlahan: \\(a + b = b + a\\)</div>
+                                        <div>• Pada Perkalian: \\(a \\times b = b \\times a\\) atau \\(ab = ba\\)</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong>Sifat Asosiatif (Pengelompokan dapat diubah):</strong>
+                                    <div class="my-1 pl-4 space-y-1">
+                                        <div>• Pada Penjumlahan: \\((a + b) + c = a + (b + c)\\)</div>
+                                        <div>• Pada Perkalian: \\((a \\times b) \\times c = a \\times (b \\times c)\\) atau \\((ab)c = a(bc)\\)</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-2">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-right-arrow-left"></i> Substitusi
+                            </h5>
+                            <p class="text-xs text-cyan-100">
+                                Proses mengganti variabel dengan suatu nilai/angka yang diketahui untuk menentukan nilai akhir bentuk aljabar tersebut.
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            bab2: {
+                // Kata Pengantar per Misi untuk Bab 2 (Kesebangunan)
+                misi3Intro: `Selamat datang di Misi 3 Treasure Kesebangunan!
+Di misi ini, kamu bakal menguji dan mengasah pemahaman kesebangunanmu secara bertahap dari tingkat dasar sampai soal HOTS (Higher Order Thinking Skills) melalui 6 jenjang soal:
+a. C1 (Mengingat) yang akan menguji ingatan kamu tentang sifat-sifat sudut dan syarat dasar dua bangun sebangun.
+b. C2 (Memahami) yang akan menguji pemahaman kamu dalam menjelaskan alasan matematis kesebangunan bangun datar dan hubungan antar sudut.
+c. C3 (Menerapkan) yang akan menguji kemampuan kamu dalam menghitung panjang sisi yang belum diketahui dan dimensi baru hasil perbesaran skala.
+d. C4 (Menganalisis) yang akan menguji kemampuan kamu dalam menganalisis perbandingan sisi atau sudut untuk melacak kesalahan kesebangunan.
+e. C5 (Mengevaluasi) yang akan menguji kemampuan kamu dalam menilai dan membuktikan kebenaran kesimpulan kesebangunan pada situasi nyata.
+f. C6 (Mencipta) yang akan menguji kemampuan kamu dalam merancang denah, dua bangun datar yang sebangun, atau masalah kontekstual secara mandiri.
+Siapkan alat tulismu dan taklukkan tantangannya satu per satu!`,
+
+                misi4Intro: `Selamat datang di Misi 4 Treasure Kesebangunan!
+Di misi ini, kamu bakal menguji kesiapan dan ketelitianmu dalam menghadapi ujian tengah semester atau ujian akhir semester melalui soal-soal pilihan ganda melalui website ZEP Quiz.
+
+📍 Petunjuk Pengerjaan di ZEP Quiz:
+· Saat link dibuka, kamu bisa langsung menggerakkan avatarmu. Jika kamu menggunakan Handphone, maka gunakan joystick di layar sentuh untuk mengarahkan jalannya avatar. Jika kamu menggunakan Laptop/komputer, maka gunakan tombol panah/arah yang ada pada keyboard laptop/komputer untuk bergerak dan berpindah ke soal yang lain.
+· Gerakkan avatar mengikuti petunjuk panah yang ada di peta untuk menuju ke lokasi kuis!
+· Setibanya di tempat kuis, kamu bisa langsung memilih jawaban pilihan ganda yang menurutmu paling tepat!
+· Periksa kembali perhitunganmu, lalu kirim jawaban untuk melihat kebenaran dari setiap jawabanmu!
+· Setelah kamu mengerjakan semua soalnya, skor akhir kamu akan langsung tertampil pada layarmu.
+
+Kerjakan dengan tenang, teliti setiap langkah pengerjaannya, dan buktikan bahwa kamu siap meraih hasil terbaik!`,
+
+                misi5Intro: `Selamat datang di Misi 5 Treasure Kesebangunan!
+Setelah berjuang menaklukkan berbagai soal dan kuis, saatnya kamu mengunci kembali pemahamanmu! Di misi ini, seluruh konsep penting kesebangunan secara ringkas dan jelas untuk membantu memetakan kembali poin-poin utamanya. Manfaatkan rangkuman ini sebagai panduan cepat (cheat sheet) untuk menyegarkan ingatanmu kapan saja!`,
+
+                misi6Intro: `Selamat datang di Misi 6 Treasure Kesebangunan!
+Di misi penutup ini, saatnya kamu melihat kembali seluruh perjalanan belajarmu di materi Kesebangunan. Luangkan waktu sejenak, jujurlah pada dirimu sendiri, dan jadikan refleksi ini sebagai pijakan untuk belajar lebih hebat lagi!`,
+
+                // Link Misi 3 (C1 - C6) Bab 2
+                misi3Link: "https://wayground.com/join?gc=31672509",
+                
+                // Link Misi 4 (UTS/UAS) Bab 2
+                misi4Link: "https://quiz.zep.us/en/play/k4PbMQ",
+                
+                // Uraian Rangkuman Misi 5 Bab 2
+                misi5Rangkuman: `
+                    <div class="space-y-6 text-sm leading-relaxed text-cyan-50">
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-slash-forward"></i> Sudut pada Garis Berpotongan & Sejajar
+                            </h5>
+                            <ul class="list-disc list-inside space-y-1.5 text-xs text-cyan-100">
+                                <li><strong>Sudut Bertolak Belakang:</strong> Besarnya sama.</li>
+                                <li><strong>Sudut Berpelurus:</strong> Jumlah sudutnya \\(180^\\circ\\).</li>
+                                <li><strong>Sudut Bersesuaian / Sehadap:</strong> Besarnya sama.</li>
+                                <li><strong>Sudut Dalam / Luar Berseberangan:</strong> Besarnya sama.</li>
+                                <li><strong>Sudut Dalam / Luar Sepihak:</strong> Jumlah sudutnya \\(180^\\circ\\).</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-vector-square"></i> Konsep Sebangun & Faktor Skala
+                            </h5>
+                            <p class="text-xs text-cyan-100">
+                                Dua bangun dikatakan <strong>sebangun</strong> jika memenuhi ketentuan:
+                            </p>
+                            <ol class="list-decimal list-inside text-xs text-cyan-100 space-y-1 pl-2">
+                                <li>Sudut-sudut yang bersesuaian sama besar.</li>
+                                <li>Sisi-sisi yang bersesuaian memiliki perbandingan yang sama.</li>
+                            </ol>
+                            <div class="pt-2">
+                                <span class="text-xs font-bold text-amber-300">Rumus Faktor Skala (\\(k\\)):</span>
+                                <div class="my-2 p-3 bg-slate-900 rounded-xl border border-cyan-400/20 text-center overflow-x-auto">
+                                    \\[ k = \\frac{\\text{Sisi yang bersesuaian pada bangun hasil perbesar/perkecil}}{\\text{Sisi yang bersesuaian pada bangun awal}} \\]
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-2">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-draw-polygon"></i> Kesebangunan pada Segitiga
+                            </h5>
+                            <p class="text-xs text-cyan-100">
+                                Dua segitiga dikatakan sebangun (\\(\\triangle ABC \\sim \\triangle DEF\\)) apabila sudut-sudut yang bersesuaian sama besar dan perbandingan ketiga pasang sisi yang bersesuaian bernilai sama (memiliki faktor skala \\(k\\) yang sama).
+                            </p>
+                        </div>
+                    </div>
+                `
+            },
+            bab3: {
+                // Kata Pengantar per Misi untuk Bab 3 (Data & Diagram)
+                misi3Intro: `Selamat datang di Misi 3 Treasure Data & Diagram!
+Di misi ini, kamu bakal menguji dan mengasah pemahamanmu tentang data dan diagram secara bertahap dari tingkat dasar sampai soal HOTS (Higher Order Thinking Skills) melalui 6 jenjang soal:
+a. C1 (Mengingat) yang akan menguji ingatan kamu tentang jenis-jenis data (kategorik dan numerik) serta fungsi dasar tiap diagram.
+b. C2 (Memahami) yang akan menguji pemahaman kamu dalam menjelaskan alasan pemilihan bentuk penyajian data dan mendeteksi perbedaan karakteristik diagram.
+c. C3 (Menerapkan) yang akan menguji kemampuan kamu dalam menghitung persentase, selisih nilai, dan menyajikan data sederhana ke dalam diagram.
+d. C4 (Menganalisis) yang akan menguji kemampuan kamu dalam menganalisis tren perubahan data dari waktu ke waktu dan melacak kesalahan penafsiran diagram.
+e. C5 (Mengevaluasi) yang akan menguji kemampuan kamu dalam menilai dan mengkritisi ketepatan jenis diagram yang digunakan untuk suatu konteks penyajian data.
+f. C6 (Mencipta) yang akan menguji kemampuan kamu dalam merancang survei sederhana, mengumpulkan data, dan menyajikan diagram secara mandiri.
+Siapkan alat tulismu dan taklukkan tantangannya satu per satu!`,
+
+                misi4Intro: `Selamat datang di Misi 4 Treasure Data dan Diagram!
+Di misi ini, kamu bakal menguji kesiapan dan ketelitianmu dalam menghadapi ujian tengah semester atau ujian akhir semester melalui soal-soal pilihan ganda melalui website ZEP Quiz.
+
+📍 Petunjuk Pengerjaan di ZEP Quiz:
+· Saat link dibuka, kamu bisa langsung menggerakkan avatarmu. Jika kamu menggunakan Handphone, maka gunakan joystick di layar sentuh untuk mengarahkan jalannya avatar. Jika kamu menggunakan Laptop/komputer, maka gunakan tombol panah/arah yang ada pada keyboard laptop/komputer untuk bergerak dan berpindah ke soal yang lain.
+· Gerakkan avatar mengikuti petunjuk panah yang ada di peta untuk menuju ke lokasi kuis!
+· Setibanya di tempat kuis, kamu bisa langsung memilih jawaban pilihan ganda yang menurutmu paling tepat!
+· Periksa kembali perhitunganmu, lalu kirim jawaban untuk melihat kebenaran dari setiap jawabanmu!
+· Setelah kamu mengerjakan semua soalnya, skor akhir kamu akan langsung tertampil pada layarmu.
+
+Kerjakan dengan tenang, teliti setiap langkah pengerjaannya, dan buktikan bahwa kamu siap meraih hasil terbaik!`,
+
+                misi5Intro: `Selamat datang di Misi 5 Treasure Data dan Diagram!
+Setelah berjuang menaklukkan berbagai soal dan kuis, saatnya kamu mengunci kembali pemahamanmu! Di misi ini, seluruh konsep penting data dan diagram dirangkum secara ringkas dan jelas untuk membantu memetakan kembali poin-poin utamanya. Manfaatkan rangkuman ini sebagai panduan cepat (cheat sheet) untuk menyegarkan ingatanmu kapan saja!`,
+
+                misi6Intro: `Selamat datang di Misi 6 Treasure Data dan Diagram!
+Di misi penutup ini, saatnya kamu melihat kembali seluruh perjalanan belajarmu di materi data dan Diagram. Luangkan waktu sejenak, jujurlah pada dirimu sendiri, dan jadikan refleksi ini sebagai pijakan untuk belajar lebih hebat lagi!`,
+
+                // Link Misi 3 (C1 - C6) Bab 3
+                misi3Link: "https://wayground.com/join?gc=28133565",
+                
+                // Link Misi 4 (UTS/UAS) Bab 3
+                misi4Link: "https://quiz.zep.us/en/play/nzLWqX",
+                
+                // Uraian Rangkuman Misi 5 Bab 3
+                misi5Rangkuman: `
+                    <div class="space-y-6 text-sm leading-relaxed text-cyan-50">
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-database"></i> Definisi & Jenis-Jenis Data
+                            </h5>
+                            <p class="text-xs text-cyan-100">
+                                <strong>Data</strong> adalah kumpulan informasi yang diperoleh melalui pengamatan, pencatatan, atau pengukuran nyata.
+                            </p>
+                            <ul class="list-disc list-inside space-y-1.5 text-xs text-cyan-100">
+                                <li><strong>Data Kategorik (Kualitatif):</strong> Berbentuk kualitatif biasanya menunjukkan nama, kriteria, kelompok, atau identitas (contoh: nama provinsi, jenis buah, nomor kelas).</li>
+                                <li><strong>Data Numerik (Kuantitatif):</strong> Selalu berupa bilangan hasil perhitungan atau pengukuran (disimbolkan dengan angka) (contoh: tinggi badan, berat badan, banyak kendaraan).</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-3">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie"></i> Penyajian Data dalam Diagram
+                            </h5>
+                            <div class="space-y-3 text-xs text-cyan-100">
+                                <div>
+                                    <strong>1. Diagram Batang:</strong> Menggunakan batang untuk menunjukkan nilai setiap kategori. Berguna untuk membandingkan antar kategori.
+                                </div>
+                                <div>
+                                    <strong>2. Diagram Garis:</strong> Menggunakan titik-titik yang dihubungkan garis untuk menunjukkan tren perubahan data dari waktu ke waktu.
+                                </div>
+                                <div>
+                                    <strong>3. Diagram Lingkaran:</strong> Menyajikan data dalam bentuk lingkaran yang dibagi menjadi beberapa juring.
+                                    <div class="my-2 p-3 bg-slate-900 rounded-xl border border-cyan-400/20 text-center space-y-3 overflow-x-auto">
+                                        <div>
+                                            \\[ \\text{Sudut Juring} = \\frac{\\text{Banyak Data Kategori}}{\\text{Total Seluruh Data}} \\times 360^\\circ \\]
+                                        </div>
+                                        <div>
+                                            \\[ \\text{Persentase} = \\frac{\\text{Banyak Data Kategori}}{\\text{Total Seluruh Data}} \\times 100\\% \\]
+                                        </div>
+                                        <div>
+                                            \\[ \\text{Persentase} = \\frac{\\text{Sudut Juring}}{360^\\circ} \\times 100\\% \\]
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/80 p-5 rounded-2xl border border-cyan-400/30 space-y-2">
+                            <h5 class="text-amber-300 font-bold text-base flex items-center gap-2">
+                                <i class="fa-solid fa-lightbulb"></i> Tips Memilih Diagram
+                            </h5>
+                            <ul class="list-disc list-inside space-y-1 text-xs text-cyan-100">
+                                <li><strong>Diagram Batang:</strong> Membandingkan data numerik beberapa kategori.</li>
+                                <li><strong>Diagram Garis:</strong> Menampilkan tren/perubahan data dari waktu ke waktu.</li>
+                                <li><strong>Diagram Lingkaran:</strong> Menunjukkan proporsi/bagian kategori terhadap total keseluruhan.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        // Data 10 Pernyataan Refleksi untuk Masing-Masing Bab
+        const refleksiStatements = {
+            bab1: {
+                title: "Treasure Bentuk Aljabar",
+                subtitle: "Bab 1 — Bentuk Aljabar",
+                items: [
+                    "Aku memahami unsur-unsur bentuk aljabar, seperti variabel, koefisien, konstanta, dan suku.",
+                    "Aku memahami sifat-sifat dan operasi hitung aljabar, termasuk sifat distributif.",
+                    "Aku dapat menerjemahkan situasi sehari-hari ke dalam bentuk aljabar.",
+                    "Aku dapat memahami contoh soal aljabar dan mengikuti pembahasannya untuk mengetahui langkah-langkah penyelesaian.",
+                    "Aku dapat menggunakan konsep aljabar untuk menyelesaikan soal dengan tingkat kesulitan yang berbeda.",
+                    "Aku dapat mengerjakan latihan soal aljabar pada tingkat kognitif C1 hingga C6.",
+                    "Aku dapat menentukan strategi penyelesaian yang tepat saat mengerjakan latihan soal aljabar secara mandiri.",
+                    "Aku dapat mengerjakan latihan soal persiapan UTS/UAS untuk materi aljabar secara mandiri.",
+                    "Aku dapat menggunakan rangkuman materi untuk mengingat kembali konsep aljabar yang telah dipelajari.",
+                    "Aku dapat mengetahui materi aljabar yang sudah kukuasai dan yang masih perlu kupelajari kembali."
+                ]
+            },
+            bab2: {
+                title: "Treasure Kesebangunan",
+                subtitle: "Bab 2 — Kesebangunan",
+                items: [
+                    "Aku memahami hubungan antar sudut yang dipelajari, seperti sudut bersesuaian, dalam berseberangan, dan dalam sepihak.",
+                    "Aku memahami syarat dua bangun datar dikatakan sebangun.",
+                    "Aku dapat menentukan perbandingan sisi-sisi yang bersesuaian dan faktor skala (k) pada bangun sebangun.",
+                    "Aku memahami kriteria kesebangunan segitiga dan perbandingan sisi-sisi yang bersesuaian.",
+                    "Aku dapat memahami contoh soal kesebangunan dan mengikuti pembahasannya untuk mengetahui langkah-langkah penyelesaian.",
+                    "Aku dapat menggunakan konsep kesebangunan untuk menyelesaikan soal dengan tingkat kesulitan yang berbeda.",
+                    "Aku dapat mengerjakan latihan soal kesebangunan pada tingkat kognitif C1 hingga C6.",
+                    "Aku dapat mengerjakan latihan soal persiapan UTS/UAS untuk materi kesebangunan secara mandiri.",
+                    "Aku dapat menggunakan rangkuman materi untuk mengingat kembali konsep kesebangunan yang telah dipelajari.",
+                    "Aku dapat mengetahui materi kesebangunan yang sudah kukuasai dan yang masih perlu kupelajari kembali."
+                ]
+            },
+            bab3: {
+                title: "Treasure Data & Diagram",
+                subtitle: "Bab 3 — Data & Diagram",
+                items: [
+                    "Aku memahami pengertian data, data numerik, dan data kategorik.",
+                    "Aku memahami karakteristik dan fungsi diagram batang, diagram garis, serta diagram lingkaran.",
+                    "Aku dapat memilih jenis diagram yang sesuai dengan tujuan penyajian data.",
+                    "Aku dapat memahami contoh soal data dan diagram serta mengikuti pembahasannya untuk mengetahui langkah-langkah penyelesaian.",
+                    "Aku dapat membaca, menganalisis, dan menyajikan data menggunakan diagram yang sesuai.",
+                    "Aku dapat mengerjakan latihan soal data dan diagram pada tingkat kognitif C1 hingga C6.",
+                    "Aku dapat menentukan cara penyelesaian yang tepat saat mengerjakan latihan soal data dan diagram secara mandiri.",
+                    "Aku dapat mengerjakan latihan soal persiapan UTS/UAS untuk materi data dan diagram secara mandiri.",
+                    "Aku dapat menggunakan rangkuman materi untuk mengingat kembali konsep data dan diagram yang telah dipelajari.",
+                    "Aku dapat mengetahui materi data dan diagram yang sudah kukuasai dan yang masih perlu kupelajari kembali."
+                ]
+            }
+        };
+
+        // Isolated State Storage per Chapter
+        let refleksiState = {
+            bab1: { answers: {}, submitted: false, isReviewing: false },
+            bab2: { answers: {}, submitted: false, isReviewing: false },
+            bab3: { answers: {}, submitted: false, isReviewing: false }
+        };
+
+        // Restorasi dari localStorage jika tersedia
+        try {
+            const savedState = localStorage.getItem('mathTreasureRefleksiData');
+            if (savedState) {
+                const parsed = JSON.parse(savedState);
+                refleksiState = { ...refleksiState, ...parsed };
+            }
+        } catch (e) {
+            console.log('Penyimpanan lokal tidak tersedia, menggunakan memori RAM.');
+        }
+
+        let currentBab = 'bab1';
+        let currentMission = 3; // Default dimulai dari Misi 3
+        let currentPage = 'page-home';
+
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('mathTreasureRefleksiData', JSON.stringify(refleksiState));
+            } catch (e) {}
+        }
+
+        function navigateTo(pageId) {
+            currentPage = pageId;
+            document.querySelectorAll('.page-screen').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(pageId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+            renderHeaderNav();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderHeaderNav() {
+            const navContainer = document.getElementById('header-nav-right');
+            if (currentPage === 'page-home') {
+                navContainer.innerHTML = '';
+            } else if (currentPage === 'page-daftar-bab') {
+                navContainer.innerHTML = `
+                    <button onclick="navigateTo('page-home')" class="px-4 py-2 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-cyan-300/50 text-white text-sm font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg">
+                        <i class="fa-solid fa-house"></i> Beranda
+                    </button>
+                `;
+            } else if (currentPage === 'page-detail-bab') {
+                navContainer.innerHTML = `
+                    <button onclick="navigateTo('page-daftar-bab')" class="px-4 py-2 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-cyan-300/50 text-white text-sm font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg">
+                        <i class="fa-solid fa-arrow-left"></i> Pilih Bab
+                    </button>
+                `;
+            }
+        }
+
+        // FUNGSI MEMBUKA KODE AKSES / PASSWORD SEBELUM MASUK MISI BAB
+        function selectBab(babId) {
+            pendingBabId = babId;
+            openPasswordModal(babId);
+        }
+
+        function openPasswordModal(babId) {
+            const modal = document.getElementById('password-modal');
+            const title = document.getElementById('password-modal-title');
+            const subtitle = document.getElementById('password-modal-subtitle');
+            const input = document.getElementById('password-input');
+            const errorMsg = document.getElementById('password-error-msg');
+
+            const babNames = {
+                bab1: "Bab 1 — Bentuk Aljabar",
+                bab2: "Bab 2 — Kesebangunan",
+                bab3: "Bab 3 — Data & Diagram"
+            };
+
+            title.innerText = "Kode Akses " + (babNames[babId] || "Bab");
+            subtitle.innerText = "Masukkan kode/password untuk membuka " + (babNames[babId] || "bab ini") + ".";
+            input.value = "";
+            errorMsg.classList.add('hidden');
+            modal.classList.remove('hidden');
+            setTimeout(() => input.focus(), 100);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.add('hidden');
+            pendingBabId = null;
+        }
+
+        function submitPassword() {
+    const input = document.getElementById('password-input').value.trim();
+    const errorMsg = document.getElementById('password-error-msg');
+
+    if (pendingBabId && chapterPasswords[pendingBabId]) {
+        if (input.toLowerCase() === chapterPasswords[pendingBabId].toLowerCase()) {
+            const babToUnlock = pendingBabId; // Simpan ID bab sebelum di-reset
+            closePasswordModal();             // Tutup modal (yang membuat pendingBabId jadi null)
+            unlockAndLoadBab(babToUnlock);    // Buka misi dengan ID bab yang sudah disimpan
+        } else {
+            errorMsg.classList.remove('hidden');
+            document.getElementById('password-input').value = "";
+            document.getElementById('password-input').focus();
+        }
+    }
+}
+
+        function unlockAndLoadBab(babId) {
+            currentBab = babId;
+            currentMission = 3; // Default ke Misi 3 saat membuka bab
+            const data = refleksiStatements[babId];
+            
+            // Header Bab
+            const headerContainer = document.getElementById('bab-detail-header');
+            headerContainer.innerHTML = `
+                <span class="inline-block px-4 py-1.5 bg-amber-400/20 border border-amber-300/50 text-amber-300 font-extrabold rounded-full text-xs uppercase tracking-widest mb-3 shadow-md">
+                    ${data.subtitle}
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white drop-shadow-md mb-2">
+                    ${data.title}
+                </h2>
+                <p class="text-cyan-100 text-sm sm:text-base font-medium">
+                    Silakan pilih misi di bawah ini. Refleksi Pembelajaran / Self-Check berada pada <strong class="text-yellow-300">Misi 6</strong>.
+                </p>
+            `;
+
+            renderMissionTabs();
+            renderMissionContent();
+            navigateTo('page-detail-bab');
+        }
+
+        function selectMission(missionNum) {
+            currentMission = missionNum;
+            renderMissionTabs();
+            renderMissionContent();
+        }
+
+        function renderMissionTabs() {
+            const container = document.getElementById('mission-tabs-grid');
+            let html = '';
+
+            missionsInfo.forEach(m => {
+                const isActive = m.num === currentMission;
+                html += `
+                    <div onclick="selectMission(${m.num})" 
+                        class="cursor-pointer rounded-2xl p-4 transition-all duration-300 border flex flex-col justify-between shadow-md ${
+                            isActive 
+                            ? 'bg-gradient-to-tr from-cyan-600 to-blue-700 border-2 border-amber-300 shadow-lg shadow-cyan-500/40 scale-102' 
+                            : 'bg-slate-900/80 hover:bg-slate-800 border-cyan-400/30 text-white'
+                        }">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-xs px-2.5 py-0.5 rounded-full ${isActive ? 'bg-amber-400 text-slate-900 font-extrabold' : 'bg-cyan-950 text-amber-300 border border-cyan-400/30'}">
+                                ${m.title}
+                            </span>
+                            <i class="fa-solid ${m.icon} ${isActive ? 'text-yellow-300 text-base' : 'text-cyan-300 text-sm'}"></i>
+                        </div>
+                        <span class="text-white font-bold text-xs sm:text-sm leading-snug">
+                            ${m.subtitle}
+                        </span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderMissionContent() {
+            const container = document.getElementById('mission-content-container');
+            const babData = refleksiStatements[currentBab];
+            const chapterData = chapterMissionsData[currentBab];
+
+            if (currentMission === 3) {
+                // MISI 3: LATIHAN SOAL BERTINGKAT C1 - C6
+                const targetMisi3 = chapterData.misi3Link || '#';
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                        <!-- BOX KATA PENGANTAR MISI 3 -->
+                        <div class="bg-slate-950/90 border-2 border-amber-400/50 rounded-2xl p-5 sm:p-6 text-cyan-50 shadow-lg leading-relaxed text-left">
+                            <div class="flex items-center gap-2 text-amber-300 font-extrabold text-sm mb-3 uppercase tracking-wider">
+                                <i class="fa-solid fa-scroll"></i> Kata Pengantar Misi 3
+                            </div>
+                            <div class="text-xs sm:text-sm whitespace-pre-line text-cyan-100/90 leading-relaxed font-medium">
+${chapterData.misi3Intro}
+                            </div>
+                        </div>
+
+                        <div class="text-center max-w-xl mx-auto space-y-2 pt-2">
+                            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400/20 border-2 border-amber-300/50 flex items-center justify-center text-amber-300 text-3xl shadow-lg mb-4">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <span class="inline-block px-3 py-1 bg-cyan-950 border border-cyan-400/40 text-amber-300 text-xs font-bold rounded-full">
+                                Misi 3
+                            </span>
+                            <h3 class="text-2xl font-bold text-white">Latihan Soal Bertingkat (C1 - C6)</h3>
+                            <p class="text-cyan-100 text-sm leading-relaxed">
+                                Asah kemampuanmu dari tingkat C1 hingga C6 dengan mengerjakannya secara mandiri pada link latihan soal.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 text-center">
+                            <a href="${targetMisi3}" target="_blank" rel="noopener noreferrer" 
+                                class="btn-gold-shimmer inline-flex items-center gap-2 text-slate-900 font-extrabold px-10 py-4 rounded-full text-base uppercase tracking-wider transition-all cursor-pointer border-2 border-yellow-100 shadow-xl">
+                                <i class="fa-solid fa-pen-to-square"></i> Mengerjakan Latihan Soal C1 - C6 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else if (currentMission === 4) {
+                // MISI 4: LATIHAN PERSIAPAN UTS/UAS
+                const targetUTS = chapterData.misi4Link || '#';
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                        <!-- BOX KATA PENGANTAR MISI 4 -->
+                        <div class="bg-slate-950/90 border-2 border-amber-400/50 rounded-2xl p-5 sm:p-6 text-cyan-50 shadow-lg leading-relaxed text-left">
+                            <div class="flex items-center gap-2 text-amber-300 font-extrabold text-sm mb-3 uppercase tracking-wider">
+                                <i class="fa-solid fa-scroll"></i> Kata Pengantar Misi 4
+                            </div>
+                            <div class="text-xs sm:text-sm whitespace-pre-line text-cyan-100/90 leading-relaxed font-medium">
+${chapterData.misi4Intro}
+                            </div>
+                        </div>
+
+                        <div class="text-center max-w-xl mx-auto space-y-2 pt-2">
+                            <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-400/20 border-2 border-amber-300/50 flex items-center justify-center text-amber-300 text-3xl shadow-lg mb-4">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <span class="inline-block px-3 py-1 bg-cyan-950 border border-cyan-400/40 text-amber-300 text-xs font-bold rounded-full">
+                                Misi 4
+                            </span>
+                            <h3 class="text-2xl font-bold text-white">Latihan Persiapan UTS / UAS</h3>
+                            <p class="text-cyan-100 text-sm leading-relaxed">
+                                Asah kesiapan dirimu menghadapi ujian tengah dan akhir semester dengan mengerjakannya secara mandiri pada link ZEP Quiz.
+                            </p>
+                        </div>
+
+                        <div class="pt-2 text-center">
+                            <a href="${targetUTS}" target="_blank" rel="noopener noreferrer" 
+                                class="btn-gold-shimmer inline-flex items-center gap-2 text-slate-900 font-extrabold px-10 py-4 rounded-full text-base uppercase tracking-wider transition-all cursor-pointer border-2 border-yellow-100 shadow-xl">
+                                <i class="fa-solid fa-pen-to-square"></i> Mengerjakan Latihan UTS / UAS <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            } else if (currentMission === 5) {
+                // MISI 5: RANGKUMAN MATERI
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                        <!-- BOX KATA PENGANTAR MISI 5 -->
+                        <div class="bg-slate-950/90 border-2 border-amber-400/50 rounded-2xl p-5 sm:p-6 text-cyan-50 shadow-lg leading-relaxed text-left">
+                            <div class="flex items-center gap-2 text-amber-300 font-extrabold text-sm mb-3 uppercase tracking-wider">
+                                <i class="fa-solid fa-scroll"></i> Kata Pengantar Misi 5
+                            </div>
+                            <div class="text-xs sm:text-sm whitespace-pre-line text-cyan-100/90 leading-relaxed font-medium">
+${chapterData.misi5Intro}
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 border-b border-cyan-400/30 pb-4 pt-2">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-600/50 border border-cyan-300/50 flex items-center justify-center text-amber-300 text-2xl shadow-md">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-amber-300 uppercase tracking-widest block">Misi 5</span>
+                                <h3 class="text-xl sm:text-2xl font-bold text-white">Rangkuman Materi — ${babData.title}</h3>
+                            </div>
+                        </div>
+
+                        <div id="rangkuman-content-body" class="prose prose-invert max-w-none text-cyan-50 leading-relaxed">
+                            ${chapterData.misi5Rangkuman}
+                        </div>
+                    </div>
+                `;
+
+                // Render Notasi Matematika / LaTeX menggunakan MathJax jika ada
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([document.getElementById('rangkuman-content-body')]);
+                }
+            } else if (currentMission === 6) {
+                // MISI 6: REFLEKSI PEMBELAJARAN / SELF-CHECK
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+                        <!-- BOX KATA PENGANTAR MISI 6 -->
+                        <div class="bg-slate-950/90 border-2 border-amber-400/50 rounded-2xl p-5 sm:p-6 text-cyan-50 shadow-lg leading-relaxed text-left">
+                            <div class="flex items-center gap-2 text-amber-300 font-extrabold text-sm mb-3 uppercase tracking-wider">
+                                <i class="fa-solid fa-scroll"></i> Kata Pengantar Misi 6
+                            </div>
+                            <div class="text-xs sm:text-sm whitespace-pre-line text-cyan-100/90 leading-relaxed font-medium">
+${chapterData.misi6Intro}
+                            </div>
+                        </div>
+
+                        <div id="refleksi-container" class="relative overflow-hidden">
+                            <!-- Content Refleksi Diinjeksi oleh JS -->
+                        </div>
+                    </div>
+                `;
+                renderRefleksiSection();
+            }
+        }
+
+        function selectAnswer(babId, index, value) {
+            refleksiState[babId].answers[index] = value;
+            saveToLocalStorage();
+            renderRefleksiSection();
+        }
+
+        function renderRefleksiSection() {
+            const container = document.getElementById('refleksi-container');
+            if (!container) return;
+
+            const babData = refleksiStatements[currentBab];
+            const state = refleksiState[currentBab];
+
+            if (state.submitted && !state.isReviewing) {
+                // TAMPILAN HASIL REFLEKSI
+                const scores = calculateScore(currentBab);
+                const feedback = getFeedback(scores.percentage);
+
+                container.innerHTML = `
+                    <div class="text-center max-w-2xl mx-auto py-4">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950 border border-cyan-300/50 text-cyan-200 text-xs font-bold mb-4">
+                            <i class="fa-solid fa-square-poll-vertical text-amber-300"></i> Hasil Refleksi Pembelajaran (Misi 6)
+                        </div>
+                        
+                        <h3 class="text-2xl sm:text-4xl font-extrabold text-white mb-2">
+                            Refleksi ${babData.title}
+                        </h3>
+
+                        <p class="text-cyan-100 text-sm mb-8">
+                            Berikut adalah ringkasan evaluasi pemahamanmu setelah menyelesaikan seluruh Misi pada bab ini.
+                        </p>
+
+                        <!-- Score Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                            <div class="bg-slate-900/80 rounded-2xl p-6 border border-cyan-300/40 text-center shadow-lg">
+                                <span class="text-xs uppercase font-bold tracking-wider text-cyan-200 block mb-1">Total Skor</span>
+                                <div class="text-4xl font-black text-amber-300">
+                                    ${scores.totalSkorFormatted} <span class="text-lg text-white/70 font-semibold">/ 10</span>
+                                </div>
+                            </div>
+                            <div class="bg-slate-900/80 rounded-2xl p-6 border border-cyan-300/40 text-center shadow-lg">
+                                <span class="text-xs uppercase font-bold tracking-wider text-cyan-200 block mb-1">Persentase Ketuntasan</span>
+                                <div class="text-4xl font-black text-cyan-300">
+                                    ${scores.percentage}%
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar Indicator -->
+                        <div class="mb-8 bg-slate-950/90 rounded-2xl p-4 border border-cyan-300/40 shadow-inner">
+                            <div class="flex justify-between text-xs font-bold text-cyan-200 mb-2">
+                                <span>Tingkat Pemahaman</span>
+                                <span>${scores.percentage}%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-5 p-1 border border-cyan-400/50 overflow-hidden">
+                                <div class="bg-gradient-to-r ${feedback.bgGradient} h-full rounded-full transition-all duration-1000" style="width: ${scores.percentage}%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Box -->
+                        <div class="glass-card rounded-2xl p-6 text-left border-2 ${feedback.borderColor} mb-8 shadow-xl">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl ${feedback.iconBg} flex items-center justify-center ${feedback.iconColor} text-xl shadow-md">
+                                    <i class="${feedback.icon}"></i>
+                                </div>
+                                <h4 class="text-lg sm:text-xl font-bold text-white">
+                                    ${feedback.title}
+                                </h4>
+                            </div>
+                            <p class="text-sm text-cyan-50/95 leading-relaxed font-medium">
+                                "${feedback.message}"
+                            </p>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                            <button onclick="reviewAnswers('${currentBab}')" class="w-full sm:w-auto px-6 py-3 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-cyan-300/50 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md">
+                                <i class="fa-solid fa-eye"></i> Tinjau Kembali Jawaban
+                            </button>
+                            <button onclick="resetRefleksi('${currentBab}')" class="w-full sm:w-auto btn-gold-shimmer text-slate-900 font-extrabold px-8 py-3 rounded-full text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer">
+                                <i class="fa-solid fa-rotate-right"></i> Ulangi Refleksi
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // TAMPILAN PERNYATAAN REFLEKSI / MODE TINJAU
+            let html = `
+                <div class="mb-6 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/40 text-amber-300 text-xs font-bold mb-2 shadow-sm">
+                        <i class="fa-solid fa-clipboard-check"></i> Refleksi Pembelajaran / Self-Check (Misi 6)
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                        Refleksi Petualangan MathTreasureID
+                    </h3>
+                    <div class="bg-slate-950/80 border-2 border-cyan-300/40 rounded-2xl p-4 text-cyan-100 text-xs sm:text-sm leading-relaxed backdrop-blur-md shadow-md">
+                        "Setelah menyelesaikan Misi 1–5, yuk refleksikan pemahaman dan kemampuanmu! Berilah tanda centang pada salah satu pilihan yang paling sesuai dengan dirimu."
+                    </div>
+                </div>
+            `;
+
+            if (state.isReviewing) {
+                html += `
+                    <div class="mb-4 bg-amber-500/20 border border-amber-400/50 rounded-xl p-3 flex items-center justify-between text-xs sm:text-sm text-amber-200 font-semibold shadow-md">
+                        <span><i class="fa-solid fa-info-circle"></i> Mode Tinjau Jawaban: Kamu sedang melihat jawaban yang telah dikirimkan.</span>
+                        <button onclick="backToResult('${currentBab}')" class="px-3 py-1 rounded-lg bg-amber-400 text-slate-900 font-extrabold hover:bg-amber-300 transition-all cursor-pointer">
+                            Kembali ke Hasil
+                        </button>
+                    </div>
+                `;
+            }
+
+            html += `<div class="space-y-4 mb-8">`;
+
+            babData.items.forEach((itemText, idx) => {
+                const itemNum = idx + 1;
+                const currentAns = state.answers[itemNum];
+
+                html += `
+                    <div class="bg-slate-900/70 border border-cyan-400/30 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md">
+                        <div class="flex items-start gap-3 flex-1">
+                            <span class="flex-shrink-0 w-7 h-7 rounded-full bg-cyan-600 border border-cyan-300/60 text-white text-xs font-extrabold flex items-center justify-center shadow-md">
+                                ${itemNum}
+                            </span>
+                            <p class="text-sm text-white font-medium leading-relaxed pt-0.5">
+                                ${itemText}
+                            </p>
+                        </div>
+
+                        <!-- Answer Options Buttons -->
+                        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0 self-end md:self-center">
+                            <!-- Option Iya -->
+                            <button onclick="${state.isReviewing ? '' : `selectAnswer('${currentBab}',${itemNum}, 'Iya')`}" 
+                                class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 border cursor-pointer ${
+                                    currentAns === 'Iya' 
+                                    ? 'bg-emerald-600 text-white border-emerald-300 shadow-lg shadow-emerald-500/40 scale-105 font-black' 
+                                    : 'bg-slate-900/80 text-cyan-100 border-cyan-400/40 hover:bg-cyan-800/80 shadow-md'
+                                }">
+                                <i class="fa-solid ${currentAns === 'Iya' ? 'fa-circle-check' : 'fa-circle'} text-xs"></i> Iya
+                            </button>
+
+                            <!-- Option Cukup -->
+                            <button onclick="${state.isReviewing ? '' : `selectAnswer('${currentBab}',${itemNum}, 'Cukup')`}" 
+                                class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 border cursor-pointer ${
+                                    currentAns === 'Cukup' 
+                                    ? 'bg-amber-600 text-white border-amber-300 shadow-lg shadow-amber-500/40 scale-105 font-black' 
+                                    : 'bg-slate-900/80 text-cyan-100 border-cyan-400/40 hover:bg-cyan-800/80 shadow-md'
+                                }">
+                                <i class="fa-solid ${currentAns === 'Cukup' ? 'fa-circle-check' : 'fa-circle'} text-xs"></i> Cukup
+                            </button>
+
+                            <!-- Option Tidak -->
+                            <button onclick="${state.isReviewing ? '' : `selectAnswer('${currentBab}',${itemNum}, 'Tidak')`}" 
+                                class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 border cursor-pointer ${
+                                    currentAns === 'Tidak' 
+                                    ? 'bg-rose-600 text-white border-rose-300 shadow-lg shadow-rose-500/40 scale-105 font-black' 
+                                    : 'bg-slate-900/80 text-cyan-100 border-cyan-400/40 hover:bg-cyan-800/80 shadow-md'
+                                }">
+                                <i class="fa-solid ${currentAns === 'Tidak' ? 'fa-circle-check' : 'fa-circle'} text-xs"></i> Tidak
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+
+            if (state.isReviewing) {
+                html += `
+                    <div class="text-center pt-2">
+                        <button onclick="backToResult('${currentBab}')" class="btn-gold-shimmer text-slate-900 font-extrabold px-10 py-3.5 rounded-full text-sm uppercase tracking-wider cursor-pointer">
+                            Kembali ke Hasil Refleksi
+                        </button>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="text-center pt-2">
+                        <button onclick="submitRefleksi('${currentBab}')" class="btn-gold-shimmer text-slate-900 font-extrabold text-base px-10 py-4 rounded-full transition-all uppercase tracking-wider cursor-pointer border-2 border-yellow-100 shadow-xl">
+                            Lihat Hasil Refleksi
+                        </button>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function submitRefleksi(babId) {
+            const state = refleksiState[babId];
+            const answeredCount = Object.keys(state.answers).length;
+
+            // Validasi jika masih ada pertanyaan yang belum dijawab
+            if (answeredCount < 10) {
+                document.getElementById('warning-modal').classList.remove('hidden');
+                return;
+            }
+
+            state.submitted = true;
+            state.isReviewing = false;
+            saveToLocalStorage();
+            renderRefleksiSection();
+            
+            document.getElementById('refleksi-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeWarningModal() {
+            document.getElementById('warning-modal').classList.add('hidden');
+        }
+
+        function calculateScore(babId) {
+            const answers = refleksiState[babId].answers;
+            let total = 0;
+
+            for (let i = 1; i <= 10; i++) {
+                const val = answers[i];
+                if (val === 'Iya') total += 1.0;
+                else if (val === 'Cukup') total += 0.5;
+                else if (val === 'Tidak') total += 0;
+            }
+
+            const percentage = Math.round((total / 10) * 100);
+            const totalSkorFormatted = total.toString().replace('.', ',');
+
+            return {
+                totalSkor: total,
+                totalSkorFormatted: totalSkorFormatted,
+                percentage: percentage
+            };
+        }
+
+        function getFeedback(percentage) {
+            if (percentage > 80) {
+                return {
+                    title: "Hebat, Petualang Matematika!",
+                    message: "Kerja bagus! Kamu sudah menunjukkan pemahaman yang baik terhadap materi pada bab ini. Pertahankan semangat belajarmu dan terus tingkatkan kemampuanmu dengan mencoba soal-soal yang lebih menantang. Terus lanjutkan petualangan matematikamu!",
+                    bgGradient: "from-emerald-400 via-teal-300 to-cyan-300",
+                    borderColor: "border-emerald-400/80 bg-emerald-950/90",
+                    iconBg: "bg-emerald-500/40 border border-emerald-400/60",
+                    iconColor: "text-emerald-300",
+                    icon: "fa-solid fa-trophy"
+                };
+            } else if (percentage >= 50 && percentage <= 80) {
+                return {
+                    title: "Bagus, Petualang! Terus Tingkatkan!",
+                    message: "Kamu sudah memahami sebagian besar materi, tetapi masih ada beberapa hal yang perlu diperkuat. Jangan menyerah, ya! Pelajari kembali bagian yang masih terasa sulit, baca ulang rangkuman materi, dan berlatihlah lagi agar pemahamanmu semakin mantap.",
+                    bgGradient: "from-amber-400 via-yellow-300 to-cyan-300",
+                    borderColor: "border-amber-400/80 bg-amber-950/90",
+                    iconBg: "bg-amber-500/40 border border-amber-400/60",
+                    iconColor: "text-amber-300",
+                    icon: "fa-solid fa-thumbs-up"
+                };
+            } else {
+                return {
+                    title: "Jangan Menyerah, Petualang!",
+                    message: "Tidak apa-apa, setiap petualangan membutuhkan proses belajar. Hasil ini menunjukkan bahwa kamu perlu memperkuat kembali pemahamanmu. Yuk, pelajari kembali materi dan rangkuman pada bab ini, lalu kerjakan lagi latihan yang tersedia di setiap misi. Kamu pasti bisa berkembang jika terus berusaha!",
+                    bgGradient: "from-orange-500 via-amber-400 to-yellow-300",
+                    borderColor: "border-orange-400/80 bg-orange-950/90",
+                    iconBg: "bg-orange-500/40 border border-orange-400/60",
+                    iconColor: "text-orange-300",
+                    icon: "fa-solid fa-seedling"
+                };
+            }
+        }
+
+        function reviewAnswers(babId) {
+            refleksiState[babId].isReviewing = true;
+            renderRefleksiSection();
+        }
+
+        function backToResult(babId) {
+            refleksiState[babId].isReviewing = false;
+            renderRefleksiSection();
+        }
+
+        function resetRefleksi(babId) {
+            refleksiState[babId] = { answers: {}, submitted: false, isReviewing: false };
+            saveToLocalStorage();
+            renderRefleksiSection();
+        }
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHeaderNav();
+        });
+    </script>
+</body>
+</html>
